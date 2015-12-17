@@ -91,11 +91,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     vendor/flex/prebuilt/common/lib/content-types.properties:system/lib/content-types.properties
 
-# Bring in camera effects
-PRODUCT_COPY_FILES +=  \
-    vendor/flex/prebuilt/common/media/LMprec_508.emd:system/media/LMprec_508.emd \
-    vendor/flex/prebuilt/common/media/PFFprec_600.emd:system/media/PFFprec_600.emd
-
 # Enable SIP+VoIP on all targets
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.software.sip.voip.xml:system/etc/permissions/android.software.sip.voip.xml
