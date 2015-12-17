@@ -106,7 +106,7 @@ PRODUCT_COPY_FILES += \
 
 # Copy namelessrom permission file
 PRODUCT_COPY_FILES += \
-    vendor/cm/config/permissions/org.namelessrom.android.xml:system/etc/permissions/org.namelessrom.android.xml
+    vendor/flex/config/permissions/org.namelessrom.android.xml:system/etc/permissions/org.namelessrom.android.xml
 
 # This is CM!
 PRODUCT_COPY_FILES += \
