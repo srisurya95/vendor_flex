@@ -99,22 +99,12 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     frameworks/base/data/keyboards/Vendor_045e_Product_028e.kl:system/usr/keylayout/Vendor_045e_Product_0719.kl
 
-# Copy namelessrom permission file
-PRODUCT_COPY_FILES += \
-    vendor/flex/config/permissions/org.namelessrom.android.xml:system/etc/permissions/org.namelessrom.android.xml
-
 # This is CM!
 PRODUCT_COPY_FILES += \
     vendor/flex/config/permissions/com.cyanogenmod.android.xml:system/etc/permissions/com.cyanogenmod.android.xml
 
 # T-Mobile theme engine
 include vendor/flex/config/themes_common.mk
-
-# Nameless Features
- PRODUCT_PACKAGES += \
-     org.namelessrom.platform-res \
-     org.namelessrom.platform \
-     org.namelessrom.platform.xml \
 
 # Required packages
 PRODUCT_PACKAGES += \
