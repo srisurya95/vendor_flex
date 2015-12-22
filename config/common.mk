@@ -219,105 +219,20 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 PRODUCT_PACKAGE_OVERLAYS += vendor/flex/overlay/common
 
-PRODUCT_VERSION_MAJOR = 2
-PRODUCT_VERSION_MAJOR = 0
-PRODUCT_VERSION_MINOR = 0
-PRODUCT_VERSION_MAINTENANCE = 0-RC0
-
-
-# Set FLEX_BUILDTYPE from the env RELEASE_TYPE, for jenkins compat
+PRODUCT_VERSION = 2.0
 
 ifndef FLEX_BUILDTYPE
-    ifdef RELEASE_TYPE
-        # Starting with "FLEX_" is optional
-        RELEASE_TYPE := $(shell echo $(RELEASE_TYPE) | sed -e 's|^FLEX_||g')
-        FLEX_BUILDTYPE := $(RELEASE_TYPE)
-    endif
+        FLEX_BUILDTYPE := UNOFFICIAL
 endif
 
-# Filter out random types, so it'll reset to unofficial
-ifeq ($(filter weekly nightly release experimental,$(FLEX_BUILDTYPE)),)
-    FLEX_BUILDTYPE :=
-endif
-
-ifdef FLEX_BUILDTYPE
-    ifneq ($(FLEX_BUILDTYPE), release)
-        ifdef FLEX_EXTRAVERSION
-            # Force build type to experimental
-            FLEX_BUILDTYPE := experimental
-            # Remove leading dash from FLEX_EXTRAVERSION
-            FLEX_EXTRAVERSION := $(shell echo $(FLEX_EXTRAVERSION) | sed 's/-//')
-            # Add leading dash to FLEX_EXTRAVERSION
-            FLEX_EXTRAVERSION := -$(FLEX_EXTRAVERSION)
-        endif
-    else
-        ifndef FLEX_EXTRAVERSION
-            # Force build type to experimental, release mandates a tag
-            FLEX_BUILDTYPE := experimental
-        else
-            # Remove leading dash from FLEX_EXTRAVERSION
-            FLEX_EXTRAVERSION := $(shell echo $(FLEX_EXTRAVERSION) | sed 's/-//')
-            # Add leading dash to FLEX_EXTRAVERSION
-            FLEX_EXTRAVERSION := -$(FLEX_EXTRAVERSION)
-        endif
-    endif
-else
-    # If FLEX_BUILDTYPE is not defined, set to unofficial
-    FLEX_BUILDTYPE := unofficial
-    FLEX_EXTRAVERSION :=
-endif
-
-ifeq ($(FLEX_BUILDTYPE), unofficial)
-    ifneq ($(TARGET_unofficial_BUILD_ID),)
-        FLEX_EXTRAVERSION := -$(TARGET_unofficial_BUILD_ID)
-    endif
-endif
-
-ifeq ($(FLEX_BUILDTYPE), RELEASE)
-    ifndef TARGET_VENDOR_RELEASE_BUILD_ID
-        FLEX_VERSION := flexos_$(PLATFORM_VERSION)_$(PRODUCT_VERSION_MAINTENANCE)$(PRODUCT_VERSION_DEVICE_SPECIFIC)_$(shell date -u +%Y%m%d)-$(FLEX_BUILD)
-    else
-        ifeq ($(TARGET_BUILD_VARIANT),user)
-            FLEX_VERSION := flexos_$(PLATFORM_VERSION)_$(TARGET_VENDOR_RELEASE_BUILD_ID)_$(shell date -u +%Y%m%d)-$(FLEX_BUILD)
-        else
-            FLEX_VERSION := flexos_$(PLATFORM_VERSION)_$(PRODUCT_VERSION_MAINTENANCE)$(PRODUCT_VERSION_DEVICE_SPECIFIC)_$(shell date -u +%Y%m%d)-$(FLEX_BUILD)
-        endif
-    endif
-else
-    ifeq ($(PRODUCT_VERSION_MINOR),0)
-        FLEX_VERSION := flexos_$(PLATFORM_VERSION)_$(shell date -u +%Y%m%d)_$(FLEX_BUILDTYPE)$(FLEX_EXTRAVERSION)_$(FLEX_BUILD)
-    else
-        FLEX_VERSION := flexos_$(PLATFORM_VERSION)_$(shell date -u +%Y%m%d)_$(FLEX_BUILDTYPE)$(FLEX_EXTRAVERSION)_$(FLEX_BUILD)
-    endif
-endif
+        FLEX_VERSION := FlexOS_v$(PPRODUCT_VERSION)_$(shell date -u +%Y%m%d)_$(FLEX_BUILDTYPE)_$(FLEX_BUILD)
 
 PRODUCT_PROPERTY_OVERRIDES += \
   ro.flex.version=$(FLEX_VERSION) \
   ro.flex.releasetype=$(FLEX_BUILDTYPE) \
   ro.modversion=$(FLEX_VERSION)
 
--include vendor/flex-priv/keys/keys.mk
-
 FLEX_DISPLAY_VERSION := $(FLEX_VERSION)
-
-ifneq ($(PRODUCT_DEFAULT_DEV_CERTIFICATE),)
-ifneq ($(PRODUCT_DEFAULT_DEV_CERTIFICATE),build/target/product/security/testkey)
-  ifneq ($(FLEX_BUILDTYPE), unofficial)
-    ifndef TARGET_VENDOR_RELEASE_BUILD_ID
-      ifneq ($(FLEX_EXTRAVERSION),)
-        # Remove leading dash from FLEX_EXTRAVERSION
-        FLEX_EXTRAVERSION := $(shell echo $(FLEX_EXTRAVERSION) | sed 's/-//')
-        TARGET_VENDOR_RELEASE_BUILD_ID := $(FLEX_EXTRAVERSION)
-      else
-        TARGET_VENDOR_RELEASE_BUILD_ID := $(shell date -u +%Y%m%d)
-      endif
-    else
-      TARGET_VENDOR_RELEASE_BUILD_ID := $(TARGET_VENDOR_RELEASE_BUILD_ID)
-    endif
-    FLEX_DISPLAY_VERSION=flexos_$(PLATFORM_VERSION)-$(TARGET_VENDOR_RELEASE_BUILD_ID)
-  endif
-endif
-endif
 
 # by default, do not update the recovery with system updates
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.recovery_update=false
