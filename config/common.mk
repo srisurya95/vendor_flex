@@ -221,7 +221,7 @@ ifndef FLEX_BUILDTYPE
         FLEX_BUILDTYPE := UNOFFICIAL
 endif
 
-        FLEX_VERSION := FlexOS_v$(PRODUCT_VERSION)_$(shell date -u +%Y%m%d)_$(FLEX_BUILDTYPE)_$(FLEX_BUILD)
+        FLEX_VERSION := FlexOS_v$(PPRODUCT_VERSION)_$(shell date -u +%Y%m%d)_$(FLEX_BUILDTYPE)_$(FLEX_BUILD)
 
 PRODUCT_PROPERTY_OVERRIDES += \
   ro.flex.version=$(FLEX_VERSION) \
