@@ -18,7 +18,7 @@ $(call inherit-product, vendor/flex/config/common_full_phone.mk)
 
 # This is where we'd set a backup provider if we had one
 #$(call inherit-product, device/sample/products/backup_overlay.mk)
-$(call inherit-product, device/samsung/i9300/device.mk)
+$(call inherit-product, device/samsung/i9300/i9300.mk)
 
 # Enhanced NFC
 $(call inherit-product, vendor/flex/config/nfc_enhanced.mk)
