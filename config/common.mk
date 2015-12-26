@@ -230,6 +230,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 FLEX_DISPLAY_VERSION := $(FLEX_VERSION)
 
+#FlexOS Statistics
+#PRODUCT_COPY_FILES +=  \
+#    vendor/flex/proprietary/RomStats.apk:system/app/RomStats/RomStats.apk
+
+PRODUCT_PROPERTY_OVERRIDES += \
+   ro.romstats.url=http://flexstats.cf \
+   ro.romstats.name=FlexOS \
+   ro.romstats.version=-$(PLATFORM_VERSION) \
+   ro.romstats.tframe=7
+
 # SuperSU
 PRODUCT_COPY_FILES += \
     vendor/flex/prebuilt/common/UPDATE-SuperSU.zip:system/addon.d/UPDATE-SuperSU.zip \
