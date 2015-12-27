@@ -18,10 +18,7 @@ $(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 # Inherit from onyx device
 $(call inherit-product, device/oneplus/onyx/onyx.mk)
 
-# Enhanced NFC
-$(call inherit-product, vendor/flex/config/nfc_enhanced.mk)
-
-# Inherit some common CM stuff.
+# Inherit some common Flex stuff.
 $(call inherit-product, vendor/flex/config/common_full_phone.mk)
 
 PRODUCT_NAME := flex_onyx
