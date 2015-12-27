@@ -186,7 +186,8 @@ PRODUCT_PACKAGES += \
     Trebuchet \
     AudioFX \
     OmniSwitch \
-    LockClock
+    LockClock \
+    FlexOTA
 
 # rsync
 PRODUCT_PACKAGES += \
