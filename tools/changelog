@@ -4,11 +4,11 @@
 
 . $ANDROID_BUILD_TOP/vendor/flex/tools/colors
 
-date=`date +%Y%m%d`
+DATE=$(date +%Y%m%d)
 export Changelog=Changelog.txt
-export ChangelogDate=Changelog-"$date".txt
+export ChangelogDate=Changelog-"$DATE".txt
 
-if [ -f $Changelog ];
+if [ -f $Changelog ] || [ -f $ChangelogDate ];
 then
 	rm -f $Changelog
 	rm -f $ChangelogDate
@@ -19,7 +19,7 @@ touch $Changelog
 # Print something to build output
 echo ${bldppl}"Generating changelog..."${txtrst}
 
-for i in $(seq 5);
+for i in $(seq 10);
 do
 export After_Date=`date --date="$i days ago" +%m-%d-%Y`
 k=$(expr $i - 1)
@@ -38,7 +38,7 @@ done
 
 sed -i 's/project/   */g' $Changelog
 
-cp $Changelog $ChangelogDate
-cp $Changelog $OUT/system/etc/
-cp $ChangelogDate $OUT/
-rm $Changelog $ChangelogDate
+cp $Changelog $ChangelogDate -v
+cp $Changelog $OUT/system/etc/ -v
+cp $ChangelogDate $OUT/ -v
+rm $Changelog $ChangelogDate -f
